@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>T1 Quiz</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+        }
+
+        h1 {
+            text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
+            margin-bottom: 20px;
+        }
+
+        .question {
+            font-size: 24px;
+            margin: 10px 0;
+            text-shadow: 0 0 5px #ff0000, 0 0 10px #ff0000;
+        }
+
+        .options {
+            margin: 10px 0;
+        }
+
+        button {
+            background-color: #ff0000;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s;
+            text-shadow: 0 0 5px #ffffff, 0 0 10px #ffffff;
+        }
+
+        button:hover {
+            background-color: #ff3333;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 28px;
+            text-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <h1>T1 Quiz</h1>
+    <div id="quiz-container"></div>
+    <div id="result"></div>
+
+    <script>
+        const questions = [
+            {
+                question: "Ai được gọi với biệt danh em rể quốc dân trong T1?",
+                options: ["Zeus", "Gumayusi", "Oner", "Keria"],
+                answer: "Gumayusi"
+            },
+            {
+                question: "T1 đã vô địch thế giới bao nhiêu lần?",
+                options: ["5", "6", "3", "4"],
+                answer: "5"
+            },
+            {
+                question: "T1 thuộc giải đấu nào?",
+                options: ["LCK", "LEC", "LCS", "LPL"],
+                answer: "LCK"
+            },
+            {
+                question: "Ai là người chơi được gán với biệt danh quái vật thiên tài của T1?",
+                options: ["Gumayusi", "Oner", "Keria", "Faker"],
+                answer: "Keria"
+            },
+            {
+                question: "T1 có đội tuyển nào khác ngoài Liên Minh Huyền Thoại?",
+                options: ["Dota 2", "CS:GO", "Valorant", "Tất cả đều đúng"],
+                answer: "Tất cả đều đúng"
+            },
+            {
+                question: "Vị tướng nào làm nên tên tuổi của Faker?",
+                options: ["Azir", "Yasuo", "Florentino", "Gumayusi"],
+                answer: "Azir"
+            },
+            {
+                question: "Tê con thường đốt tiền cho ai?",
+                options: ["Tư bản", "Trai Thái", "Chủ tiệm cầm đồ", "Riot Games"],
+                answer: "Tư bản"
+            },
+            {
+                question: "Có...đang đứng đợi...lao vào đẩy được ... về và ... hứng, mạng shut down dành cho ..., ... thả cực kì đẹp và ... cũng nằm luôn.",
+                options: ["Kanavi/Faker/Ruler/Oner/Zeus/hợp chất điên loạn/Missing", "Kanavil/Faker/Ruller/Oner/Zeus/phân chia thiên hạ/Mising", "Faker/Kanavi/Oner/Keria/Missing/hợp chất điên loạn/Zeus", "Kanavy/Faker/Ruler/Oner/Zeus/hợp chất điên loạn/Missing"],
+                answer: "Kanavi/Faker/Ruler/Oner/Zeus/hợp chất điên loạn/Missing"
+            },
+            {
+                question: "Màu phong thủy của năm 2023 là gì",
+                options: ["Đen", "Đỏ", "Trắng", "Đỏ và đen"],
+                answer: "Trắng"
+            },
+            {
+                question: "Chị nguyệt là biệt danh của ai",
+                options: ["Faker", "Keria", "Oner", "Gumayusi"],
+                answer: "Oner"
+            },
+            
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+
+        function loadQuestion() {
+            const quizContainer = document.getElementById("quiz-container");
+            quizContainer.innerHTML = ""; // Xóa nội dung cũ
+
+            if (currentQuestionIndex < questions.length) {
+                const q = questions[currentQuestionIndex];
+                const questionDiv = document.createElement("div");
+                questionDiv.className = "question";
+                questionDiv.innerHTML = `${currentQuestionIndex + 1}. ${q.question}`;
+                quizContainer.appendChild(questionDiv);
+
+                const optionsDiv = document.createElement("div");
+                optionsDiv.className = "options";
+                q.options.forEach(option => {
+                    const button = document.createElement("button");
+                    button.innerHTML = option;
+                    button.onclick = () => handleAnswer(q.answer, option);
+                    optionsDiv.appendChild(button);
+                });
+                quizContainer.appendChild(optionsDiv);
+            } else {
+                showResult();
+            }
+        }
+
+        function handleAnswer(correctAnswer, selectedOption) {
+            if (selectedOption === correctAnswer) {
+                score++;
+            }
+            currentQuestionIndex++;
+            loadQuestion();
+        }
+
+        function showResult() {
+            const resultDiv = document.getElementById("result");
+            if (score >= 9) {
+                resultDiv.innerHTML = "Tê con đây chứ đâu";
+            } else {
+                resultDiv.innerHTML = "Tê hùa cút mẹ mày đi!!!";
+            }
+            const quizContainer = document.getElementById("quiz-container");
+            quizContainer.innerHTML = ""; // Xóa câu hỏi sau khi hoàn thành
+        }
+
+        loadQuestion();
+    </script>
+</body>
+</html>
